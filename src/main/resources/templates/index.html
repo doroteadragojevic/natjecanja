@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Turniri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+}
+
+
+
+    li {
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    max-width: 200px;
+}
+
+    li a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    li a:hover {
+        text-decoration: underline;
+    }
+
+
+
+
+    </style>
+</head>
+<body>
+<h1>Dobrodošli na stranicu za dodavanje turnira</h1>
+<p>Ovdje možete dodati novi turnir.</p>
+<button class="button" onclick="redirectToObrazac()">Dodaj turnir</button>
+<p>Turniri koje ste već stvorili</p>
+<div class="grid-container">
+    <ul>
+        <li th:each="turnir : ${turniri}">
+            <a th:href="@{|/turnir/${turnir.poveznica}|}" th:text="${turnir.naziv}"></a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    function redirectToObrazac() {
+        var currentHost = window.location.host;
+        window.location.href = "http://" + currentHost + "/turnir";
+    }
+
+</script>
+</body>
+</html>

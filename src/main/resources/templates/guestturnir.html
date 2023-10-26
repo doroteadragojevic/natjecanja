@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${turnir.naziv}">Naziv</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+    }
+
+    h2 {
+        color: #007bff;
+    }
+
+    .button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+
+    table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+
+
+    </style>
+
+</head>
+<body>
+
+<div th:if="${turnir != null}">
+    <h2 th:text="${turnir.naziv}">Detalji o turniru</h2>
+    <p> Poveznica: <a th:href="@{|/turnir/guest/${turnir.poveznica}|}" th:text="${turnir.naziv}"></a></p>
+    <p>Pobjeda: <span th:text="${turnir.pobjeda}"></span>
+        Remi: <span th:text="${turnir.remi}"></span>
+        Poraz: <span th:text="${turnir.poraz}"></span></p>
+    <h2>Igrači</h2>
+
+    <table style="margin: 0 auto;">
+        <tr>
+            <th></th>
+            <th>Naziv igrača</th>
+            <th>Bodovi</th>
+        </tr>
+        <tr th:each="igrac, iterStat : ${turnir.igraci}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${igrac.naziv}"></td>
+            <td th:text="${igrac.bodovi}"></td>
+        </tr>
+    </table>
+
+
+    <div th:each="kolo, k : ${kola}">
+        <h2 th:text="'KOLO ' + ${k.index + 1}">KOLO</h2>
+        <table>
+            <tr>
+                <th>Natjecatelj 1</th>
+                <th>Natjecatelj 2</th>
+                <th>Rezultat</th>
+            </tr>
+            <tr th:each="igra, i : ${kolo.igre}">
+                <td th:text="${igra.igrac1.naziv}"></td>
+                <td th:text="${igra.igrac2.naziv}"></td>
+                <td>
+                <span th:text="${igra.rezultat == T(web.pracenjenatjecanja.dao.Rezultat).POBJEDA ? 'Pobjednik: ' + igra.igrac1.naziv :
+                               (igra.rezultat == T(web.pracenjenatjecanja.dao.Rezultat).PORAZ ? 'Pobjednik: ' + igra.igrac2.naziv :
+                               (igra.rezultat == T(web.pracenjenatjecanja.dao.Rezultat).REMI ? 'REMI' :
+                               'Nije odigrano'))}"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>
+
+</body>
+</html>

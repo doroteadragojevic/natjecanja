@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>Error</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<p>Turnir ne može imati manje od 4 igrača ili više od 8 igrača.</p>
+<button class="button" onclick="redirectToObrazac()">Dodaj turnir</button>
+
+<script>
+    function redirectToObrazac() {
+        var currentHost = window.location.host;
+        window.location.href = "http://" + currentHost + "/turnir";
+    }
+</script>
+</body>
+</html>

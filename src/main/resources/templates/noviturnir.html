@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj Turnir</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+<h1>Dodaj novi turnir</h1>
+
+<form th:action="@{/turnir/novi}" th:object="${turnir}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <div class="form-group">
+        <label for="naziv">Naziv turnira:</label>
+        <input type="text" id="naziv" th:field="*{naziv}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="igracistring">Igrači (odvojeni točkom zarez):</label>
+        <input type="text" id="igracistring" th:field="*{igracistring}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="rezultati">Rezultati (odvojeni /):</label>
+        <input type="text" id="rezultati" th:field="*{rezultati}" required>
+    </div>
+
+    <div class="form-group">
+        <button type="submit">Spremi turnir</button>
+    </div>
+</form>
+
+</body>
+</html>
