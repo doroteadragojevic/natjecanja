@@ -51,7 +51,7 @@ public class TurnirContoller {
     public String urediTurnir(@PathVariable Long idTurnir, Model model, Authentication authentication) {
         String email = ((DefaultOidcUser) authentication.getPrincipal()).getAttribute("email");
         TurnirDTO turnir = turnirService.dohvatiTurnirById(idTurnir);
-        if(turnir.getEmail() != email) return "redirect:/turnir/korisnik";
+        if(!turnir.getEmail().equals(email)) return "redirect:/turnir/korisnik";
         model.addAttribute("turnir", turnir);
 
         List<KoloDTO> kola = koloService.getKoloByTurnirId(turnir.getId());
