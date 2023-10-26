@@ -48,8 +48,10 @@ public class TurnirContoller {
     }
 
     @GetMapping("/{idTurnir}")
-    public String urediTurnir(@PathVariable Long idTurnir, Model model) {
+    public String urediTurnir(@PathVariable Long idTurnir, Model model, Authentication authentication) {
+        String email = ((DefaultOidcUser) authentication.getPrincipal()).getAttribute("email");
         TurnirDTO turnir = turnirService.dohvatiTurnirById(idTurnir);
+        if(turnir.getEmail() != email) return "redirect:/turnir/korisnik";
         model.addAttribute("turnir", turnir);
 
         List<KoloDTO> kola = koloService.getKoloByTurnirId(turnir.getId());
